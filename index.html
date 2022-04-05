@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/flex.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    <link rel="stylesheet" href="styles/modalMessage.css">
+    <link rel="stylesheet" href="styles/editForm.css">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header"> <span></span>
+            <div class="button-wrapper">
+                <button id="loginButton" class="login"> LOGIN</button>
+                <button id="registerButton" class="register">SIGN UP</button>
+            </div>
+        </header>
+        <main class="main">
+            <div class="box-1">
+
+                <!-- login form -->
+                <div id="login" class="modal">
+                    <form class="modal-content">
+                        <div class="imgcontainer">
+                            <h4>Login form</h2>
+                                <span id="loginFormCross" class="close" title="Close Modal">&times;</span>
+                        </div>
+                        <div class="container">
+                            <input id="login-email" pattern="" data-error-message="" type="email" placeholder="Enter your email" name="email" required>
+                            <div class="message">Error message</div>
+                            <input id="login-psw" type="password" placeholder="Enter Password" name="psw" required>
+                            <div class="message">Error message</div>
+                            <button id="login-submit" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- register form -->
+                <div id="register" class="modal">
+                    <form class="modal-content">
+                        <div class="imgcontainer">
+                            <h4>Registration form</h2>
+                                <span id="registerFormCross" class="close" title="Close Modal">&times;</span>
+                        </div>
+                        <div class="container">
+                            <input id="email" type="email" placeholder="Enter your email" name="email" required>
+                            <input id="psw1" type="password" placeholder='Enter Password' autocomplete="new-password"
+                                name="psw" required>
+                            <div class="message">*Password can contain only digits</div>
+                            <input id="psw2" type="password" placeholder="Confirm Password" name="psw2" required>
+                            <div class="confirm message">Password and Confirm Password must be much</div>
+                            <button id="submit" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- List of Users -->
+                <div class="list-of-users">
+                    <h3 class="list-of-users-heading">List of users</h3>
+                    <ol class="list-wrapper">
+                    </ol>
+                    <div class="overlay" id="dialog-container">
+                        <div class="popup">
+                            <p>Are you sure you want to delete this user? </p>
+                            <div class="text-right">
+                                <button class="dialog-btn btn-cancel" id="cancel">No</button>
+                                <button class="dialog-btn btn-primary" id="confirm">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Form -->
+                <div class="edit-form-wrapper">
+                    <h2>Edit information about user</h2>
+                    <form class="edit-form" action="#">
+                        <div class="edit-block">
+                            <p class="edit-block-caption">Write name and surname:</p>
+                            <div class="edit-input-wrapper">
+                                <input class="name-input" type="text" id="name" name="name" value="Name">
+                            </div>
+                            <div class="edit-input-wrapper">
+                                <input class="name-input" type="text" id="surname" name="surname" value="Surname">
+                            </div>
+                        </div>
+
+                        <div class="edit-block">
+                            <p class="edit-block-caption">Chose gender:</p>
+                            <div class="edit-input-wrapper">
+                                <input class="gender" type="radio" id="gender-male" name="gender" value="male">
+                                <label for="gender-male">Male</label>
+                                <input class="gender" type="radio" id="gender-female" name="gender" value="female">
+                                <label for="gender-female">Female</label>
+                            </div>
+                        </div>
+
+                        <div class="edit-block">
+                            <p class="edit-block-caption">Chose hobby:</p>
+                            <div class="edit-input-wrapper">
+                                <div>
+                                    <input type="checkbox" id="sport" name="hobby" value="Sport">
+                                    <label for="sport">Sport</label>
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" id="travel" name="hobby" value="Travel">
+                                    <label for="travel">Travel</label>
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" id="books" name="hobby" value="Books">
+                                    <label for="books">Books</label>
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" id="fishing" name="hobby" value="Fishing">
+                                    <label for="fishing">Fishing</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="edit-block">
+                            <p class="edit-block-caption">Chose country:</p>
+                            <div class="edit-input-wrapper">
+                                <select name="country" id="country">
+                                    <option value="Ukraine" selected>Ukraine</option>
+                                    <option value="USA">USA</option>
+                                    <option value="Belarus">Belarus</option>
+                                    <option value="Poland">Poland</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="edit-block">
+                            <p class="edit-block-caption">Chose date of birth:</p>
+                            <div class="edit-input-wrapper">
+                                <input type="date" id="dateOfBirth" name="dateOfBirth" value="2018-07-22"
+                                    min="1940-01-01" max="2022-12-31">
+                            </div>
+                        </div>
+                        <input class="edit-form-save-button" type="submit" value="Save">
+
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <span>Footer</span>
+    </footer>
+    <script src="js/main.js" type="module"></script>
+
+</body>
+
+</html>
