@@ -4,11 +4,10 @@ import {
     loginSuccessfullyMessage,
     loginPasswordIncorrectMessage,
 } from './constants.js';
-import UsersList from './UsersList.js';
 
 class Login extends Form {
-    constructor(email, password) {
-        super(email, password);
+    constructor(email, password, formID) {
+        super(email, password, formID);
         this.passwordIsMatch = undefined;
         this.userPassword = this.getUserPassword();
     }

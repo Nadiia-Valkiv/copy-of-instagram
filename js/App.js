@@ -51,7 +51,7 @@ export default class App {
         document
             .getElementById(elementId)
             .addEventListener(
-                click,
+                'click',
                 () =>
                     this.changeDisplayCssProperty(idElementToStyled, property),
                 false
@@ -65,29 +65,35 @@ export default class App {
     addListenerForButtonActions(buttonId, func) {
         document
             .getElementById(buttonId)
-            .addEventListener(click, (e) => func(e));
+            .addEventListener('click', (e) => func(e));
     }
 
-    saveRegistrationData() {
+    saveRegistrationData(event) {
+        event.preventDefault();
         //todo: create a method to check is two passwords are identical
         const signUp = new SignUp(
             document.getElementById(signUpEmailId).value,
             document.getElementById(signUpPsw1Id).value,
+            'registerForm',
             document.getElementById(signUpPsw2Id).value
         );
-
-        if (signUp.isUserExist(this.usersDataLayer)) {
-            console.log(signUpHaveAccountMessage);
-        } else {
-            if (signUp.isAllDataValid()) {
-                this.usersDataLayer.add(
-                    signUp.createNewUser(),
-                    this.usersDataLayer.tableName
-                );
-                console.log(signUpSuccessfullyMessage);
+        if (signUp.isFormDataValid()) {
+            if (signUp.isUserExist(this.usersDataLayer)) {
+                console.log(signUpHaveAccountMessage);
             } else {
-                console.log(signUpInvalidDataMessage);
+                if (signUp.isAllDataValid()) {
+                    this.usersDataLayer.add(
+                        signUp.createNewUser(),
+                        this.usersDataLayer.tableName
+                    );
+                    console.log(signUpSuccessfullyMessage);
+                    this.changeDisplayCssProperty('register', 'none');
+                } else {
+                    console.log(signUpInvalidDataMessage);
+                }
             }
+        } else {
+            console.log('invalid data');
         }
     }
 
@@ -95,17 +101,22 @@ export default class App {
         e.preventDefault();
         const loginForm = new Login(
             document.getElementById(loginEmailId).value,
-            document.getElementById(loginPswId).value
+            document.getElementById(loginPswId).value,
+            'loginForm'
         );
-        if (loginForm.isUserExist()) {
-            loginForm.checkUsersPassword();
-
-            this.listOfUsers = new UsersList();
-            this.listOfUsers.showListOfUsers();
+        if (loginForm.isFormDataValid()) {
+            // loginForm.isFormDataValid()
+            if (loginForm.isUserExist()) {
+                loginForm.checkUsersPassword();
+                this.changeDisplayCssProperty('login', 'none');
+                this.listOfUsers = new UsersList();
+                this.listOfUsers.showListOfUsers();
+            } else {
+                console.log(loginPleaseRegisterMessage);
+            }
         } else {
-            console.log(loginPleaseRegisterMessage);
+            console.log('invalid data');
         }
-        this.changeDisplayCssProperty('login', 'none');
     }
 
     closeListOfUsers() {

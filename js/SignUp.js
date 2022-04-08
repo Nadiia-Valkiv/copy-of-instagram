@@ -1,8 +1,8 @@
 import Form from './Form.js';
 
 export default class SignUp extends Form {
-    constructor(email, password, confirmPassword) {
-        super(email, password);
+    constructor(email, password, formID ,confirmPassword) {
+        super(email, password, formID);
         this.confirmPassword = confirmPassword;
     }
 
@@ -54,6 +54,7 @@ export default class SignUp extends Form {
         console.log(`email :${this.validationEmail()}`);
         console.log(`password :${this.validationPassword()}`);
         console.log(`confirm password:${this.validationConfirmPassword()}`);
+        // todo: add or for this if statements
         if (this.validationEmail() !== true) return false;
         if (this.validationPassword() !== true) return false;
         if (this.validationConfirmPassword() !== true) return false;
