@@ -233,3 +233,11 @@ ol {
 .list-of-users {
   display: none;
 }
+
+.error-message {
+    color: brown;
+
+}
+input:invalid {
+    border: red solid 3px
+}

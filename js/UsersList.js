@@ -1,6 +1,6 @@
 import EditForm from './EditForm.js';
 import { app } from './main.js';
-import { clearList } from './function.js';
+import { clearList } from './helpers.js';
 
 export default class UsersList {
     constructor() {
@@ -82,7 +82,7 @@ export default class UsersList {
             this.allUsers,
             app.usersDataLayer.tableName
         );
-        clearList();
+        clearList('list-wrapper');
         this.createListOfUsers();
         this.overlayme.style.display = 'none';
     }

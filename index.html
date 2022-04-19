@@ -56,7 +56,7 @@
                             <input id="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                 data-error-message="Please enter a VALID email" placeholder="Enter your email"
                                 name="email" required>
-                            <div class="message">*Password can contain only digits</div>
+                            <div class="message">*Do not use cyrillic letters</div>
                             <input id="psw1" type="password" pattern="^\d+$"
                                 data-error-message="Please enter a valid password" placeholder='Enter Password'
                                 autocomplete="new-password" name="psw" minlength="8" required>
@@ -87,15 +87,15 @@
                 </div>
                 <!-- Edit Form -->
                 <div class="edit-form-wrapper">
-                    <h2>Edit information about user</h2>
-                    <form class="edit-form" action="#">
+                    <h2>Edit information about user <br> <span id="editFormEmail"></span></h2>
+                    <form class="edit-form" action="#" autocomplete="off">
                         <div class="edit-block">
                             <p class="edit-block-caption">Write name and surname:</p>
                             <div class="edit-input-wrapper">
-                                <input class="name-input" type="text" id="name" name="name" value="Name">
+                                <input autocomplete="off" class="name-input" type="text" id="name" name="name" value="" placeholder="Name">
                             </div>
                             <div class="edit-input-wrapper">
-                                <input class="name-input" type="text" id="surname" name="surname" value="Surname">
+                                <input class="name-input" type="text" id="surname" name="surname"value="" placeholder="Surname">
                             </div>
                         </div>
 
@@ -138,10 +138,10 @@
                             <p class="edit-block-caption">Chose country:</p>
                             <div class="edit-input-wrapper">
                                 <select name="country" id="country">
-                                    <option value="Ukraine" selected>Ukraine</option>
-                                    <option value="USA">USA</option>
-                                    <option value="Belarus">Belarus</option>
-                                    <option value="Poland">Poland</option>
+                                    <option id="Ukraine" value="Ukraine">Ukraine</option>
+                                    <option id="USA" value="USA">USA</option>
+                                    <option id="Belarus" value="Belarus">Belarus</option>
+                                    <option id="Poland" value="Poland">Poland</option>
                                 </select>
                             </div>
                         </div>

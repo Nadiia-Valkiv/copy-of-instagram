@@ -14,10 +14,17 @@ const loginEmailId = 'login-email';
 const loginPswId = 'login-psw';
 const loginPleaseRegisterMessage = `You don't have an account. Please register`;
 
-const loginSuccessfullyMessage = 'You successfully login'
-const loginPasswordIncorrectMessage = 'Your password is invalid '
+const loginSuccessfullyMessage = 'You successfully login';
+const loginPasswordIncorrectMessage = 'Your password is invalid ';
 
-export {tableName,
+const editFormInputs = [
+    'name',
+    'surname',
+    'dateOfBirth',
+];
+
+export {
+    tableName,
     click,
     signUpButtonId,
     signUpEmailId,
@@ -31,5 +38,6 @@ export {tableName,
     loginPswId,
     loginPleaseRegisterMessage,
     loginSuccessfullyMessage,
-    loginPasswordIncorrectMessage
+    loginPasswordIncorrectMessage,
+    editFormInputs,
 };

@@ -1,5 +1,6 @@
 import { app } from './main.js';
-import { clearList } from './function.js';
+import { clearList, hideHTMLElementByClassName } from './helpers.js';
+import { editFormInputs } from './constants.js';
 
 export default class EditForm {
     constructor(email) {
@@ -8,11 +9,13 @@ export default class EditForm {
         this.editFormWrapper =
             document.getElementsByClassName('edit-form-wrapper')[0];
         this.editForm = document.getElementsByClassName('edit-form')[0];
-        app.closeListOfUsers();
-        this.showEditForm();
+        hideHTMLElementByClassName('list-of-users');
         this.editForm.addEventListener('submit', (e) =>
             this.handleFormSubmit(e)
         );
+        this.addUserEmailToHeading();
+        this.populateEditForm();
+        this.showEditForm();
     }
 
     showEditForm() {
@@ -30,9 +33,41 @@ export default class EditForm {
         this.editUserData[this.userToEdit] = allUserData;
         app.usersDataLayer.updateAfterRemove(this.editUserData, 'Users');
         this.editFormWrapper.style.display = 'none';
-        clearList();
+        clearList('list-wrapper');
         app.listOfUsers.createListOfUsers();
         document.getElementsByClassName('list-of-users')[0].style.display =
             'block';
+        this.editForm.reset();
+    }
+
+    populateEditForm() {
+        const user = app.usersDataLayer.get(this.userToEdit);
+        const gender = user.gender;
+        const hobby = user.hobby;
+        const country = user.country;
+        for (let input of editFormInputs) {
+            if (!!user[input]) {
+                document
+                    .getElementById(input)
+                    .setAttribute('value', user[input]);
+            }
+        }
+        if (!!gender) {
+            document.getElementById(`gender-${gender}`).checked = true;
+        }
+        if (!!hobby) {
+            for (let h of hobby) {
+                document.getElementById(h.toLowerCase()).checked = true;
+            }
+        }
+        if (!!country) {
+            document.getElementById(country).setAttribute('selected', true);
+        }
+    }
+
+    addUserEmailToHeading() {
+        document.getElementById(
+            'editFormEmail'
+        ).innerHTML = `${this.userToEdit}`;
     }
 }
