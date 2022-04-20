@@ -16,7 +16,7 @@ class Login extends Form {
             loginButtonId,
             this.userLogin.bind(this)
         );
-        this.addListenerForFormCross('loginFormCross', 'login');
+        // this.addListenerForFormCross('loginFormCross', 'login');
         this.userPassword = null;
     }
     

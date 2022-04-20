@@ -55,13 +55,13 @@ span.psw {
   padding-top: 60px;
 }
 
-.modal-content {
+/* .modal-content {
   background-color: #d0faf6;
   margin: 5% auto 15% auto;
   border: 1px solid #888;
   width: 40%;
   max-width: 500px;
-}
+} */
 
 .close {
   position: absolute;
@@ -240,4 +240,8 @@ ol {
 }
 input:invalid {
     border: red solid 3px
+}
+
+#login{
+    di
 }

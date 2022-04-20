@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="styles/modal.css">
     <link rel="stylesheet" href="styles/modalMessage.css">
     <link rel="stylesheet" href="styles/editForm.css">
+    <link rel="stylesheet" href="styles/testModal.css">
 
 </head>
 
 <body>
     <div class="wrapper">
-        <header class="header"> <span></span>
+        <header class="header">
             <div class="button-wrapper">
                 <button id="loginButton" class="login"> LOGIN</button>
                 <button id="registerButton" class="register">SIGN UP</button>
@@ -24,51 +25,6 @@
         </header>
         <main class="main">
             <div class="box-1">
-
-                <!-- login form -->
-                <div id="login" class="modal">
-                    <form id="loginForm" class="modal-content">
-                        <div class="imgcontainer">
-                            <h2>Login form</h2>
-                            <span id="loginFormCross" class="close" title="Close Modal">&times;</span>
-                        </div>
-                        <div class="container">
-                            <input id="login-email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                data-error-message="Please enter a valid email" type="email"
-                                placeholder="Enter your email" name="email" required>
-                            <div class="message">Enter your email</div>
-                            <input id="login-psw" pattern="^\d+$" data-error-message="Please enter a valid password"
-                                type="password" placeholder="Enter Password" name="psw" required>
-                            <div class="message">Enter your password</div>
-                            <button id="login-submit" type="submit">Login</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- register form -->
-                <div id="register" class="modal">
-                    <form id="registerForm" class="modal-content">
-                        <div class="imgcontainer">
-                            <h4>Registration form</h2>
-                                <span id="registerFormCross" class="close" title="Close Modal">&times;</span>
-                        </div>
-                        <div class="container">
-                            <input id="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                data-error-message="Please enter a VALID email" placeholder="Enter your email"
-                                name="email" required>
-                            <div class="message">*Do not use cyrillic letters</div>
-                            <input id="psw1" type="password" pattern="^\d+$"
-                                data-error-message="Please enter a valid password" placeholder='Enter Password'
-                                autocomplete="new-password" name="psw" minlength="8" required>
-                            <div class="message">*Password can contain only digits</div>
-                            <input id="psw2" type="password" pattern="^\d+$"
-                                data-error-message="Please enter a valid password" placeholder="Confirm Password"
-                                name="psw2" required>
-                            <div class="confirm message">Password and Confirm Password must be much</div>
-                            <button id="submit" type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
 
                 <!-- List of Users -->
                 <div class="list-of-users">
@@ -85,6 +41,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Edit Form -->
                 <div class="edit-form-wrapper">
                     <h2>Edit information about user <br> <span id="editFormEmail"></span></h2>
@@ -92,10 +49,12 @@
                         <div class="edit-block">
                             <p class="edit-block-caption">Write name and surname:</p>
                             <div class="edit-input-wrapper">
-                                <input autocomplete="off" class="name-input" type="text" id="name" name="name" value="" placeholder="Name">
+                                <input autocomplete="off" class="name-input" type="text" id="name" name="name" value=""
+                                    placeholder="Name">
                             </div>
                             <div class="edit-input-wrapper">
-                                <input class="name-input" type="text" id="surname" name="surname"value="" placeholder="Surname">
+                                <input class="name-input" type="text" id="surname" name="surname" value=""
+                                    placeholder="Surname">
                             </div>
                         </div>
 
@@ -164,6 +123,51 @@
     <footer class="footer">
         <span>Footer</span>
     </footer>
+
+    <!-- MODAl -->
+    <div id="modal1" class="test-modal">
+        <div class="test-modal-content">
+            <div id="closeCross" class="test-close-modal-window">
+                &times;
+            </div>
+            <!-- login form -->
+            <form id="loginForm" class="modal-content">
+                <h2>Login form</h2>
+                <div class="container">
+                    <input id="login-email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        data-error-message="Please enter a valid email" type="email" placeholder="Enter your email"
+                        name="email" required>
+                    <div class="message">Enter your email</div>
+                    <input id="login-psw" pattern="^\d+$" data-error-message="Please enter a valid password"
+                        type="password" placeholder="Enter Password" name="psw" required>
+                    <div class="message">Enter your password</div>
+                    <button id="login-submit" type="submit">Login</button>
+                </div>
+            </form>
+
+            <!-- register form -->
+            <form id="registerForm" class="modal-content">
+                <h4>Registration form</h2>
+                    <div class="container">
+                        <input id="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            data-error-message="Please enter a VALID email" placeholder="Enter your email" name="email"
+                            required>
+                        <div class="message">*Do not use cyrillic letters</div>
+                        <input id="psw1" type="password" pattern="^\d+$"
+                            data-error-message="Please enter a valid password" placeholder='Enter Password'
+                            autocomplete="new-password" name="psw" minlength="8" required>
+                        <div class="message">*Password can contain only digits</div>
+                        <input id="psw2" type="password" pattern="^\d+$"
+                            data-error-message="Please enter a valid password" placeholder="Confirm Password"
+                            name="psw2" required>
+                        <div class="confirm message">Password and Confirm Password must be much</div>
+                        <button id="submit" type="submit">Submit</button>
+                    </div>
+            </form>
+
+        </div>
+    </div>
+
     <script src="js/main.js" type="module"></script>
 
 </body>

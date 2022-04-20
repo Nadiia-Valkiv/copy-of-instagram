@@ -17,7 +17,7 @@ export default class SignUp extends Form {
             this.saveRegistrationData.bind(this)
         );
 
-        this.addListenerForFormCross('registerFormCross', 'register');
+        // this.addListenerForFormCross('registerFormCross', 'register');
     }
 
     getConfirmPassword() {
