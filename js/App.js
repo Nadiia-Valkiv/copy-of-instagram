@@ -2,7 +2,6 @@ import UsersDataLayer from './UsersDataLayer.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import Modal from './Modal.js';
-import { showHTMLElement } from './helpers.js';
 
 export default class App {
     constructor() {
