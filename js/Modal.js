@@ -1,10 +1,16 @@
 export default class Modal {
-    constructor() {
+    constructor(modalId, contentClassName) {
         if (!Modal.instance) {
-            this.element = document.getElementById('modal1');
+            if(!document.getElementById(modalId)) {
+                throw Error(`Can not find html-element with id: ${modalId}`)
+            }
+            if(!document.getElementsByClassName(contentClassName)[0]) {
+                throw Error(`Can not find html-element with class name: ${contentClassName}`)
+            }
+            this.element = document.getElementById(modalId);
             this.modalContent = null;
             this.form =
-                document.getElementsByClassName('test-modal-content')[0];
+                document.getElementsByClassName(contentClassName)[0];
             Modal.instance = this;
         }
 
@@ -16,6 +22,7 @@ export default class Modal {
         this.modalContent.style.display = 'block';
         this.element.style.display = 'block';
         this.addListener();
+        this.addListenerForOverlay()
     }
 
     closeModal() {
@@ -25,6 +32,12 @@ export default class Modal {
 
     addListener() {
         document.getElementById('closeCross').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.closeModal();
+        });
+    }
+    addListenerForOverlay() {
+        document.getElementById('modal1').addEventListener('click', (e) => {
             e.preventDefault();
             this.closeModal();
         });

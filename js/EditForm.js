@@ -15,11 +15,11 @@ export default class EditForm {
         );
         this.addUserEmailToHeading();
         this.populateEditForm();
-        this.showEditForm();
+        this.showEditForm('editForm');
     }
 
-    showEditForm() {
-        this.editFormWrapper.style.display = 'block';
+    showEditForm(id) {
+        app.modal.showModal(id);
     }
 
     handleFormSubmit(event) {

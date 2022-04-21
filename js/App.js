@@ -9,7 +9,7 @@ export default class App {
         this.loginForm = new Login('loginForm');
         this.signUpForm = new SignUp('registerForm');
         this.listOfUsers = null;
-        this.modal = new Modal();
+        this.modal = new Modal('modal1','test-modal-content' );
         this.addListenerForRegistrationButtons('loginButton', 'loginForm');
         this.addListenerForRegistrationButtons(
             'registerButton',
