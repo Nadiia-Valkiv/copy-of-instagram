@@ -11,12 +11,14 @@
 
 .test-modal-content {
     background-color: #fff;
-    margin: 15% auto;
+    margin: 8% auto;
     padding: 0px;
     border: 1px solid #888;
     width: 80%;
     max-width: 500px;
     z-index: 99999;
+    border-radius: 10px;
+    
 }
 
 .test-close-modal-window {
@@ -41,3 +43,4 @@
 .popup {
     display: none;
 }
+

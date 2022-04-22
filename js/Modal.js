@@ -1,16 +1,19 @@
 export default class Modal {
     constructor(modalId, contentClassName) {
         if (!Modal.instance) {
-            if(!document.getElementById(modalId)) {
-                throw Error(`Can not find html-element with id: ${modalId}`)
+            if (!document.getElementById(modalId)) {
+                throw new Error(
+                    `Can not find html-element with id: ${modalId}`
+                );
             }
-            if(!document.getElementsByClassName(contentClassName)[0]) {
-                throw Error(`Can not find html-element with class name: ${contentClassName}`)
+            if (!document.getElementsByClassName(contentClassName)[0]) {
+                throw new Error(
+                    `Can not find html-element with class name: ${contentClassName}`
+                );
             }
             this.element = document.getElementById(modalId);
             this.modalContent = null;
-            this.form =
-                document.getElementsByClassName(contentClassName)[0];
+            this.form = document.getElementsByClassName(contentClassName)[0];
             Modal.instance = this;
         }
 
@@ -21,8 +24,8 @@ export default class Modal {
         this.modalContent = document.getElementById(id);
         this.modalContent.style.display = 'block';
         this.element.style.display = 'block';
-        this.addListener();
-        this.addListenerForOverlay()
+        this.addListenerForCross();
+        this.addListenerForOverlay();
     }
 
     closeModal() {
@@ -30,7 +33,7 @@ export default class Modal {
         this.modalContent.style.display = 'none';
     }
 
-    addListener() {
+    addListenerForCross() {
         document.getElementById('closeCross').addEventListener('click', (e) => {
             e.preventDefault();
             this.closeModal();
@@ -38,6 +41,9 @@ export default class Modal {
     }
     addListenerForOverlay() {
         document.getElementById('modal1').addEventListener('click', (e) => {
+            if (e.target !== e.currentTarget) {
+                return;
+            }
             e.preventDefault();
             this.closeModal();
         });

@@ -51,8 +51,11 @@ export default class UsersList {
             document
                 .getElementById(`delete-${allUsersKeys[index]}`)
                 .addEventListener('click', (e) => this.showDeleteDialog(e));
-            document.getElementById(`edit-${allUsersKeys[index]}`).onclick =
-                () => new EditForm(allUsersKeys[index]);
+
+            document
+                .getElementById(`edit-${allUsersKeys[index]}`)
+                .addEventListener('click', () => {new EditForm(allUsersKeys[index]);
+                });
         });
     }
 
@@ -65,7 +68,7 @@ export default class UsersList {
     showDeleteDialog(e) {
         this.userToRemoveId = e.path[0].id;
         this.userToRemove = this.userToRemoveId.split('-')[1];
-        app.modal.showModal('deleteMessage')
+        app.modal.showModal('deleteMessage');
     }
 
     confirmDeleteUser() {
@@ -82,11 +85,11 @@ export default class UsersList {
         );
         clearList('list-wrapper');
         this.createListOfUsers();
-        app.modal.closeModal()
+        app.modal.closeModal();
     }
 
     cancelDeleteUser() {
-         app.modal.closeModal()
+        app.modal.closeModal();
     }
 
     cancelButtonListener() {
