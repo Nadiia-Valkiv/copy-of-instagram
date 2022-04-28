@@ -6,7 +6,7 @@ import {
     signUpInvalidDataMessage,
     signUpHaveAccountMessage,
 } from './constants.js';
-import { hideHTMLElement } from './helpers.js';
+import UsersList from './UsersList.js';
 
 export default class SignUp extends Form {
     constructor(formID) {
@@ -16,8 +16,6 @@ export default class SignUp extends Form {
             signUpButtonId,
             this.saveRegistrationData.bind(this)
         );
-
-        this.addListenerForFormCross('registerFormCross', 'register');
     }
 
     getConfirmPassword() {
@@ -37,7 +35,9 @@ export default class SignUp extends Form {
                         app.usersDataLayer.tableName
                     );
                     console.log(signUpSuccessfullyMessage);
-                    hideHTMLElement('register');
+                    app.modal.closeModal('registerForm');
+                    app.listOfUsers = new UsersList();
+                    app.listOfUsers.showListOfUsers();
                 } else {
                     console.log(signUpInvalidDataMessage);
                 }

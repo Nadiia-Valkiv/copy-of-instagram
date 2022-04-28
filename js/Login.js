@@ -7,7 +7,6 @@ import {
     loginSuccessfullyMessage,
     loginPasswordIncorrectMessage,
 } from './constants.js';
-import { hideHTMLElement } from './helpers.js';
 class Login extends Form {
     constructor(formID) {
         super(formID);
@@ -16,7 +15,6 @@ class Login extends Form {
             loginButtonId,
             this.userLogin.bind(this)
         );
-        this.addListenerForFormCross('loginFormCross', 'login');
         this.userPassword = null;
     }
     
@@ -25,7 +23,7 @@ class Login extends Form {
         if (this.isFormDataValid()) {
             if (this.isUserExist()) {
                 this.checkUsersPassword();
-                hideHTMLElement('login');
+                app.modal.closeModal('loginForm');
                 app.listOfUsers = new UsersList();
                 app.listOfUsers.showListOfUsers();
             } else {
@@ -64,7 +62,7 @@ class Login extends Form {
 
     checkIsPasswordCorrect() {
         this.userPassword = this.getUserPassword();
-        return this.userPassword === this.getPassword;
+        return this.userPassword === this.getPassword();
     }
 
     getUpdatedLoggedUser(isLogin) {

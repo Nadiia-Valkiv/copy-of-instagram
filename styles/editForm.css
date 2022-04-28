@@ -3,8 +3,8 @@
     background-color: rgb(2, 37, 33);
     color: aliceblue;
     opacity: 0.9;
-    width: 50%;
-    margin: 0 auto;
+    width: 84%;
+    margin: 5px auto;
     border-radius: 10px;
     padding: 10px;
     padding-left: 30px;
@@ -13,7 +13,6 @@
 }
 .edit-block {
     width: 80%;
-    padding: 10px;
     /* margin: 40px auto; */
     display: flex;
     flex-direction: column;
@@ -23,12 +22,11 @@
 .edit-block-caption {
     text-align: left;
     /* text-indent: 15px; */
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     margin-bottom: 10px;
 }
 .edit-input-wrapper {
     text-align: left;
-    /* font-size: larger; */
 }
 
 .edit-form-save-button {
@@ -47,10 +45,20 @@
 
 #dateOfBirth, select, .name-input {
     width: 80%;
-    padding: 12px 16px;
+    padding: 5px 16px;
     border: none;
     border-radius: 4px;
     background-color: #f1f1f1;
-    font-size: 1.3rem;
     margin-bottom: 10px;
   }
+
+
+.hobby-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-heading {
+margin: 0;
+font-size: 20px;
+}
