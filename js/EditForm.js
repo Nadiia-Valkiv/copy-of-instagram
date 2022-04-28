@@ -9,17 +9,16 @@ export default class EditForm {
         this.editFormWrapper =
             document.getElementsByClassName('edit-form-wrapper')[0];
         this.editForm = document.getElementsByClassName('edit-form')[0];
-        hideHTMLElementByClassName('list-of-users');
         this.editForm.addEventListener('submit', (e) =>
             this.handleFormSubmit(e)
         );
         this.addUserEmailToHeading();
         this.populateEditForm();
-        this.showEditForm();
+        this.showEditForm('editForm');
     }
 
-    showEditForm() {
-        this.editFormWrapper.style.display = 'block';
+    showEditForm(id) {
+        app.modal.showModal(id);
     }
 
     handleFormSubmit(event) {
@@ -32,7 +31,7 @@ export default class EditForm {
         this.editUserData = app.usersDataLayer.getAll('Users');
         this.editUserData[this.userToEdit] = allUserData;
         app.usersDataLayer.updateAfterRemove(this.editUserData, 'Users');
-        this.editFormWrapper.style.display = 'none';
+        app.modal.closeModal()
         clearList('list-wrapper');
         app.listOfUsers.createListOfUsers();
         document.getElementsByClassName('list-of-users')[0].style.display =

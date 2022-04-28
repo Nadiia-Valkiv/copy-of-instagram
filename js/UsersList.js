@@ -4,9 +4,9 @@ import { clearList } from './helpers.js';
 
 export default class UsersList {
     constructor() {
+        clearList('list-wrapper');
         this.list = document.getElementsByClassName('list-wrapper')[0];
         this.allUsers = app.usersDataLayer.getAll('Users');
-        this.overlayme = document.getElementById('dialog-container');
         this.userToRemove = '';
         this.userToRemoveId = '';
         this.confirmDeleteUser();
@@ -45,15 +45,17 @@ export default class UsersList {
     }
 
     createListOfUsers() {
-        console.log('test');
         const allUsersKeys = Object.keys(this.allUsers);
         allUsersKeys.forEach((el, index) => {
             this.createListItem(el, el);
             document
                 .getElementById(`delete-${allUsersKeys[index]}`)
                 .addEventListener('click', (e) => this.showDeleteDialog(e));
-            document.getElementById(`edit-${allUsersKeys[index]}`).onclick =
-                () => new EditForm(allUsersKeys[index]);
+
+            document
+                .getElementById(`edit-${allUsersKeys[index]}`)
+                .addEventListener('click', () => {new EditForm(allUsersKeys[index]);
+                });
         });
     }
 
@@ -61,13 +63,12 @@ export default class UsersList {
         document.getElementsByClassName('list-of-users')[0].style.display =
             'block';
         this.createListOfUsers();
-        console.log('here');
     }
 
     showDeleteDialog(e) {
         this.userToRemoveId = e.path[0].id;
         this.userToRemove = this.userToRemoveId.split('-')[1];
-        this.overlayme.style.display = 'block';
+        app.modal.showModal('deleteMessage');
     }
 
     confirmDeleteUser() {
@@ -84,11 +85,11 @@ export default class UsersList {
         );
         clearList('list-wrapper');
         this.createListOfUsers();
-        this.overlayme.style.display = 'none';
+        app.modal.closeModal();
     }
 
     cancelDeleteUser() {
-        this.overlayme.style.display = 'none';
+        app.modal.closeModal();
     }
 
     cancelButtonListener() {

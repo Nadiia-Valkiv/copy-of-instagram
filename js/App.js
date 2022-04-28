@@ -2,7 +2,6 @@ import UsersDataLayer from './UsersDataLayer.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import Modal from './Modal.js';
-import { showHTMLElement } from './helpers.js';
 
 export default class App {
     constructor() {
@@ -10,7 +9,7 @@ export default class App {
         this.loginForm = new Login('loginForm');
         this.signUpForm = new SignUp('registerForm');
         this.listOfUsers = null;
-        this.modal = new Modal();
+        this.modal = new Modal('modal1', 'test-modal-content');
         this.addListenerForRegistrationButtons('loginButton', 'loginForm');
         this.addListenerForRegistrationButtons(
             'registerButton',
