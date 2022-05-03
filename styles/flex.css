@@ -15,6 +15,22 @@ body {
     width: 30vw;
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    }
+
+li {
+    display: inline;
+    padding-left: 20px;
+}
+
+
+
 .login,
 .register {
     padding: 10px 0;

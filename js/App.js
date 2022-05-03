@@ -2,9 +2,12 @@ import UsersDataLayer from './UsersDataLayer.js';
 import Login from './Login.js';
 import SignUp from './SignUp.js';
 import Modal from './Modal.js';
+import Router from './Router.js';
+import { routes } from './constants.js';
 
 export default class App {
     constructor() {
+        this.router = new Router(routes);
         this.usersDataLayer = new UsersDataLayer();
         this.loginForm = new Login('loginForm');
         this.signUpForm = new SignUp('registerForm');

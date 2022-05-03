@@ -17,11 +17,9 @@ const loginPleaseRegisterMessage = `You don't have an account. Please register`;
 const loginSuccessfullyMessage = 'You successfully login';
 const loginPasswordIncorrectMessage = 'Your password is invalid ';
 
-const editFormInputs = [
-    'name',
-    'surname',
-    'dateOfBirth',
-];
+const editFormInputs = ['name', 'surname', 'dateOfBirth'];
+
+const routes = ['home', 'about', 'contact'];
 
 export {
     tableName,
@@ -40,4 +38,5 @@ export {
     loginSuccessfullyMessage,
     loginPasswordIncorrectMessage,
     editFormInputs,
+    routes,
 };
