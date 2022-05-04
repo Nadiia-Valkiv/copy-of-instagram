@@ -23,7 +23,6 @@ export default class Router {
     showPage(id) {
         const root = document.querySelector('#root');
         const routeElements = root.querySelectorAll('div .route');
-        console.log(routeElements);
         routeElements.forEach((el) => {
             if (el.id === id) {
                 if (el.classList.contains('hidden')) {
@@ -42,7 +41,7 @@ export default class Router {
             if (e.state === null) {
                 this.showPage('home');
             } else {
-                this.showPage(evt.state.id);
+                this.showPage(e.state.id);
             }
         });
     }

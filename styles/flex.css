@@ -22,14 +22,12 @@ nav {
 
 nav ul {
     list-style: none;
-    }
+}
 
-li {
+nav li {
     display: inline;
     padding-left: 20px;
 }
-
-
 
 .login,
 .register {
