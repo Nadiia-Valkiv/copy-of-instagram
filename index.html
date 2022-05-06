@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/flex.css">
     <link rel="stylesheet" href="styles/modal.css">
-    <link rel="stylesheet" href="styles/modalMessage.css">
+    <!-- <link rel="stylesheet" href="styles/modalMessage.css"> -->
     <link rel="stylesheet" href="styles/editForm.css">
     <link rel="stylesheet" href="styles/testModal.css">
 
@@ -23,23 +23,62 @@
                 <button id="registerButton" class="register">SIGN UP</button>
             </div>
         </header>
-        <main class="main">
-            <div class="box-1">
+        <nav>
+            <ul>
+                <li id="homeLink"> <a href="#/">Home</a></li>
+                <li id="aboutLink"> <a href="#/about">About</a></li>
+                <li id="contactLink"> <a href="#/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="main-wrapper">
+            <main class="main">
 
-                <!-- List of Users -->
-                <div class="list-of-users">
-                    <h3 class="list-of-users-heading">List of users</h3>
-                    <ol class="list-wrapper">
-                    </ol>
+                <div class="box-1">
+                    <div id="root">
+                        <div id="about" class="route hidden">
+                            <h1>About</h1>
+                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione totam nulla
+                                praesentium, sequi facilis
+                                temporibus ut nesciunt fugiat harum, adipisci labore maxime ad animi maiores aliquam at.
+                                Quam
+                                doloremque, unde commodi minima laboriosam nostrum, iure, debitis sunt ipsum voluptatem
+                                qui?
+                            </p>
+                        </div>
+
+                        <div id="home" class="route hidden">
+                            <h1>Welcome to Home Page</h1>
+                            <div class="list-of-users">
+                                <h3 class="list-of-users-heading">List of users</h3>
+                                <ol class="list-wrapper">
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div id="contact" class="route hidden">
+                            <h1>Contact</h1>
+                            <span>Telephone: </span><a href="tel:123-456-7890">+123-456-7890</a> <br>
+                            <span>Email: </span><a href="mailto:esperanza@gmail.com">esperanza@gmail.com</a>
+                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione totam nulla
+                                praesentium, sequi facilis
+                                temporibus ut nesciunt fugiat harum, adipisci labore maxime ad animi maiores aliquam at.
+                                Quam
+                                doloremque, unde commodi minima laboriosam nostrum, iure, debitis sunt ipsum voluptatem
+                                qui?
+                            </p>
+                        </div>
+                    </div>
+                    <!-- List of Users -->
+
+
+
                 </div>
-
-
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
 
     <footer class="footer">
-        <span>Footer</span>
+        <button id="logout">Logout</button>
     </footer>
 
     <!-- MODAl -->
@@ -66,21 +105,19 @@
             <!-- register form -->
             <form id="registerForm" class="modal-content">
                 <h2>Registration form</h2>
-                    <div class="container">
-                        <input id="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                            data-error-message="Please enter a VALID email" placeholder="Enter your email" name="email"
-                            required>
-                        <div class="message">*Do not use cyrillic letters</div>
-                        <input id="psw1" type="password" pattern="^\d+$"
-                            data-error-message="Please enter a valid password" placeholder='Enter Password'
-                            autocomplete="new-password" name="psw" minlength="8" required>
-                        <div class="message">*Password can contain only digits</div>
-                        <input id="psw2" type="password" pattern="^\d+$"
-                            data-error-message="Please enter a valid password" placeholder="Confirm Password"
-                            name="psw2" required>
-                        <div class="confirm message">Password and Confirm Password must be much</div>
-                        <button id="submit" type="submit">Submit</button>
-                    </div>
+                <div class="container">
+                    <input id="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        data-error-message="Please enter a VALID email" placeholder="Enter your email" name="email"
+                        required>
+                    <div class="message">*Do not use cyrillic letters</div>
+                    <input id="psw1" type="password" pattern="^\d+$" data-error-message="Please enter a valid password"
+                        placeholder='Enter Password' autocomplete="new-password" name="psw" minlength="8" required>
+                    <div class="message">*Password can contain only digits</div>
+                    <input id="psw2" type="password" pattern="^\d+$" data-error-message="Please enter a valid password"
+                        placeholder="Confirm Password" name="psw2" required>
+                    <div class="confirm message">Password and Confirm Password must be much</div>
+                    <button id="submit" type="submit">Submit</button>
+                </div>
             </form>
 
             <!-- Edit Form -->

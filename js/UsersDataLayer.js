@@ -6,6 +6,11 @@ export default class UsersDataLayer extends DataLayer {
         super();
         this.tableName = tableName;
     }
+
+    add(userData, tableName) {
+        const result = { ...this.getAll(tableName), ...userData };
+        return localStorage.setItem(tableName, JSON.stringify(result));
+    }
     get(key) {
         return super.get(key, this.tableName);
     }

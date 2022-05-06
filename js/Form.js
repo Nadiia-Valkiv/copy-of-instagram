@@ -1,5 +1,6 @@
 import { app } from './main.js';
 import { hideHTMLElement } from './helpers.js';
+import UsersList from './UsersList.js';
 
 class Form {
     constructor(formID) {
@@ -67,6 +68,12 @@ class Form {
                 () => hideHTMLElement(idElementToStyled),
                 false
             );
+    }
+
+    performActionsOnLogin() {
+        app.dataLayer.add(this.getEmail(), 'token')
+        app.listOfUsers = new UsersList();
+        app.listOfUsers.showListOfUsers();
     }
 }
 

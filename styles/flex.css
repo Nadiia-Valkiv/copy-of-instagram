@@ -10,9 +10,23 @@ body {
 
 .button-wrapper {
     position: absolute;
-    top: 30px;
+    top: 3px;
     right: 50px;
     width: 30vw;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav li {
+    display: inline;
+    padding-left: 20px;
 }
 
 .login,

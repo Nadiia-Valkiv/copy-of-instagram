@@ -7,12 +7,16 @@ body {
     box-sizing: border-box;
 }
 
+ul {
+    margin: 0;
+}
+
 .header {
     box-sizing: border-box;
     background: rgb(160, 173, 130);
     color: rgb(12, 12, 12);
     padding: 20px;
-    min-height: 15vh;
+    min-height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +25,7 @@ body {
 main {
     background-color: rgb(174, 247, 243);
     padding: 10px;
-    min-height: 70vh;
+    min-height: 65vh;
 }
 
 .footer {
@@ -31,4 +35,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.hidden {
+    display: none;
 }
