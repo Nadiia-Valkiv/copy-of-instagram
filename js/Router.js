@@ -1,26 +1,12 @@
+import { routes } from './constants.js';
+
 export default class Router {
-    constructor(routes) {
-        this.onPopState();
-        routes.forEach((route) => this.addListenersToNavPanel(route));
+    constructor() {
+        this.listener('load');
+        this.listener('hashchange');
     }
 
-    addListenersToNavPanel(route) {
-        document
-            .getElementById(`${route}Link`)
-            .addEventListener('click', (e) => this.route(e, route));
-    }
-
-    route(e, path) {
-        e.preventDefault();
-        if (path === 'home') {
-            window.history.pushState({ id: path }, null, `#/`);
-        } else {
-            window.history.pushState({ id: path }, null, `#/${path}`);
-        }
-        this.showPage(path);
-    }
-
-    showPage(id) {
+    resolveRoute(id) {
         const root = document.querySelector('#root');
         const routeElements = root.querySelectorAll('div .route');
         routeElements.forEach((el) => {
@@ -36,13 +22,21 @@ export default class Router {
         });
     }
 
-    onPopState() {
-        window.addEventListener('popstate', (e) => {
-            if (e.state === null) {
-                this.showPage('home');
+    listener(param) {
+        window.addEventListener(param, () => {
+            let url = window.location.hash.slice(2) || '/';
+            if (url === '/') {
+                url = 'home';
+            }
+            if (this.isRouteValid(url)) {
+                this.resolveRoute(url);
             } else {
-                this.showPage(e.state.id);
+                throw new Error(`Route ${url} not found`);
             }
         });
+    }
+
+    isRouteValid(route) {
+        return routes.includes(route);
     }
 }

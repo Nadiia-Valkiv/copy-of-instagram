@@ -24,8 +24,8 @@ class Login extends Form {
             if (this.isUserExist()) {
                 this.checkUsersPassword();
                 app.modal.closeModal('loginForm');
-                app.listOfUsers = new UsersList();
-                app.listOfUsers.showListOfUsers();
+                console.log(this.getEmail());
+                this.performActionsOnLogin();
             } else {
                 console.log(loginPleaseRegisterMessage);
             }

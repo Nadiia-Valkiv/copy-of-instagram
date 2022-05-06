@@ -1,7 +1,6 @@
 class DataLayer {
     add(userData, tableName) {
-        const result = { ...this.getAll(tableName), ...userData };
-        return localStorage.setItem(tableName, JSON.stringify(result));
+        return localStorage.setItem(tableName, JSON.stringify(userData));
     }
 
     get(key, tableName) {

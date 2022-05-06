@@ -38,5 +38,5 @@ export {
     loginSuccessfullyMessage,
     loginPasswordIncorrectMessage,
     editFormInputs,
-    routes,
+    routes
 };

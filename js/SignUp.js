@@ -6,6 +6,7 @@ import {
     signUpInvalidDataMessage,
     signUpHaveAccountMessage,
 } from './constants.js';
+
 import UsersList from './UsersList.js';
 
 export default class SignUp extends Form {
@@ -36,8 +37,7 @@ export default class SignUp extends Form {
                     );
                     console.log(signUpSuccessfullyMessage);
                     app.modal.closeModal('registerForm');
-                    app.listOfUsers = new UsersList();
-                    app.listOfUsers.showListOfUsers();
+                    this.performActionsOnLogin();
                 } else {
                     console.log(signUpInvalidDataMessage);
                 }
