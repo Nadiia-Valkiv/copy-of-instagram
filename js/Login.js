@@ -1,6 +1,5 @@
 import Form from './Form.js';
 import { app } from './main.js';
-import UsersList from './UsersList.js';
 import {
     loginButtonId,
     loginPleaseRegisterMessage,
@@ -17,7 +16,7 @@ class Login extends Form {
         );
         this.userPassword = null;
     }
-    
+
     userLogin(e) {
         e.preventDefault();
         if (this.isFormDataValid()) {
@@ -65,11 +64,10 @@ class Login extends Form {
         return this.userPassword === this.getPassword();
     }
 
-    getUpdatedLoggedUser(isLogin) {
+    getUpdatedLoggedUser() {
         return {
             [this.getEmail()]: {
                 password: this.getPassword(),
-                isLogin: isLogin,
             },
         };
     }

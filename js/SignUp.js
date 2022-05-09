@@ -52,7 +52,6 @@ export default class SignUp extends Form {
             return {
                 [this.getEmail()]: {
                     password: this.getPassword(),
-                    isLogin: false,
                 },
             };
         } else {

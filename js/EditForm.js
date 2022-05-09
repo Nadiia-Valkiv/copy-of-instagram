@@ -1,5 +1,5 @@
 import { app } from './main.js';
-import { clearList, hideHTMLElementByClassName } from './helpers.js';
+import { clearList} from './helpers.js';
 import { editFormInputs } from './constants.js';
 
 export default class EditForm {
@@ -16,6 +16,10 @@ export default class EditForm {
         this.populateEditForm();
         this.showEditForm('editForm');
     }
+
+    // getUserToEdit() {
+    //     return this.userToEdit;
+    // }
 
     showEditForm(id) {
         app.modal.showModal(id);
@@ -49,6 +53,10 @@ export default class EditForm {
                 document
                     .getElementById(input)
                     .setAttribute('value', user[input]);
+            } else {
+                document
+                    .getElementById(input)
+                    .setAttribute('value', '');
             }
         }
         if (!!gender) {
