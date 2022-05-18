@@ -1,5 +1,5 @@
+import { tableName } from '../utils/constants.js';
 import DataLayer from './DataLayer.js';
-import { tableName } from './constants.js';
 
 export default class UsersDataLayer extends DataLayer {
     constructor() {

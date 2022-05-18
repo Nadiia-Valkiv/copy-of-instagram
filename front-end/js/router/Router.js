@@ -1,4 +1,4 @@
-import { routes } from './constants.js';
+import { routes } from '../utils/constants.js';
 
 export default class Router {
     constructor() {

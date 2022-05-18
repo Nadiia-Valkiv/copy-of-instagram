@@ -1,6 +1,6 @@
-import EditForm from './EditForm.js';
-import { app } from './main.js';
-import { clearList } from './helpers.js';
+import EditForm from '../forms/EditForm.js';
+import { app } from '../main.js';
+import { clearList } from '../utils/helpers.js';
 
 export default class UsersList {
     constructor() {
@@ -9,6 +9,7 @@ export default class UsersList {
         this.allUsers = app.usersDataLayer.getAll('Users');
         this.userToRemove = '';
         this.userToRemoveId = '';
+        this.form = null;
         this.confirmDeleteUser();
         this.cancelButtonListener();
     }
@@ -54,7 +55,8 @@ export default class UsersList {
 
             document
                 .getElementById(`edit-${allUsersKeys[index]}`)
-                .addEventListener('click', () => {new EditForm(allUsersKeys[index]);
+                .addEventListener('click', () => { app.editForm = new EditForm(allUsersKeys[index]);
+                app.editForm.showEditForm('editForm');
                 });
         });
     }

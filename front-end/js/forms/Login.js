@@ -1,11 +1,12 @@
 import Form from './Form.js';
-import { app } from './main.js';
+import { app } from '../main.js';
 import {
     loginButtonId,
     loginPleaseRegisterMessage,
     loginSuccessfullyMessage,
     loginPasswordIncorrectMessage,
-} from './constants.js';
+} from '../utils/constants.js';
+
 class Login extends Form {
     constructor(formID) {
         super(formID);
@@ -23,7 +24,6 @@ class Login extends Form {
             if (this.isUserExist()) {
                 this.checkUsersPassword();
                 app.modal.closeModal('loginForm');
-                console.log(this.getEmail());
                 this.performActionsOnLogin();
             } else {
                 console.log(loginPleaseRegisterMessage);

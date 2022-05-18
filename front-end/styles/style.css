@@ -40,3 +40,13 @@ main {
 .hidden {
     display: none;
 }
+
+#logout,
+#loginButton,
+#registerButton {
+    display: none;
+}
+
+#loginButton {
+    margin-right: 15px;
+}

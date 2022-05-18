@@ -1,6 +1,6 @@
-import { app } from './main.js';
-import { clearList} from './helpers.js';
-import { editFormInputs } from './constants.js';
+import { app } from '../main.js';
+import { clearList } from '../utils/helpers.js';
+import { editFormInputs } from '../utils/constants.js';
 
 export default class EditForm {
     constructor(email) {
@@ -14,7 +14,7 @@ export default class EditForm {
         );
         this.addUserEmailToHeading();
         this.populateEditForm();
-        this.showEditForm('editForm');
+        // this.showEditForm('editForm');
     }
 
     // getUserToEdit() {
@@ -35,12 +35,13 @@ export default class EditForm {
         this.editUserData = app.usersDataLayer.getAll('Users');
         this.editUserData[this.userToEdit] = allUserData;
         app.usersDataLayer.updateAfterRemove(this.editUserData, 'Users');
-        app.modal.closeModal()
+        app.modal.closeModal();
         clearList('list-wrapper');
         app.listOfUsers.createListOfUsers();
         document.getElementsByClassName('list-of-users')[0].style.display =
             'block';
         this.editForm.reset();
+        app.editForm = null;
     }
 
     populateEditForm() {
@@ -54,9 +55,7 @@ export default class EditForm {
                     .getElementById(input)
                     .setAttribute('value', user[input]);
             } else {
-                document
-                    .getElementById(input)
-                    .setAttribute('value', '');
+                document.getElementById(input).setAttribute('value', '');
             }
         }
         if (!!gender) {

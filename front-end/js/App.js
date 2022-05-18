@@ -1,10 +1,12 @@
-import UsersDataLayer from './UsersDataLayer.js';
-import DataLayer from './DataLayer.js';
-import Login from './Login.js';
-import SignUp from './SignUp.js';
-import Modal from './Modal.js';
-import Router from './Router.js';
-import UsersList from './UsersList.js';
+import UsersDataLayer from './services/UsersDataLayer.js';
+import DataLayer from './services/DataLayer.js';
+import Login from './forms/Login.js';
+import SignUp from './forms/SignUp.js';
+import Modal from './utils/Modal.js';
+import Router from './router/Router.js';
+import UsersList from './services/UsersList.js';
+import { hideHTMLElement, showHTMLElement
+} from './utils/helpers.js'
 
 export default class App {
     constructor() {
@@ -13,6 +15,7 @@ export default class App {
         this.usersDataLayer = new UsersDataLayer();
         this.loginForm = new Login('loginForm');
         this.signUpForm = new SignUp('registerForm');
+        this.loginForm = null;
         this.listOfUsers = null;
         this.modal = new Modal('modal1', 'test-modal-content');
         this.addListenerForRegistrationButtons('loginButton', 'loginForm');
@@ -20,9 +23,8 @@ export default class App {
             'registerButton',
             'registerForm'
         );
-        this.addLogOutListener()
+        this.addLogOutListener();
         this.onLoad();
-
     }
 
     addListenerForRegistrationButtons(buttonId, formId) {
@@ -35,15 +37,23 @@ export default class App {
     onLoad() {
         window.addEventListener('load', () => {
             if (this.checkIsTokenValid()) {
+                hideHTMLElement('loginButton');
+                hideHTMLElement('registerButton');
+                showHTMLElement('logout');
                 this.listOfUsers = new UsersList();
                 this.listOfUsers.showListOfUsers();
+            } 
+            else {
+                showHTMLElement('loginButton');
+                showHTMLElement('registerButton');
             }
         });
     }
 
     checkIsTokenValid() {
-        let result = this.dataLayer.getAll('token').length;
-        return result > 0 ? true : false;
+        const loggedInUser = this.dataLayer.getAll('token');
+        const registeredUser = Object.keys(this.dataLayer.getAll('Users'));
+        return registeredUser.includes(loggedInUser);
     }
 
     addLogOutListener() {

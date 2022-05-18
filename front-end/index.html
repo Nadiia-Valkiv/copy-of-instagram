@@ -21,6 +21,7 @@
             <div class="button-wrapper">
                 <button id="loginButton" class="login"> LOGIN</button>
                 <button id="registerButton" class="register">SIGN UP</button>
+                <button id="logout">Logout</button>
             </div>
         </header>
         <nav>
@@ -44,6 +45,12 @@
                                 doloremque, unde commodi minima laboriosam nostrum, iure, debitis sunt ipsum voluptatem
                                 qui?
                             </p>
+                            <form id="uploadForm" enctype="multipart/form-data" action="/uploadjavatpoint"
+                                method="post">
+                                <input type="file" name="myfile" /><br /><br />
+                                <input type="submit" value="Upload Image" name="submit"><br /><br />
+                                <span id="status"></span>
+                            </form>
                         </div>
 
                         <div id="home" class="route hidden">
@@ -78,7 +85,6 @@
     </div>
 
     <footer class="footer">
-        <button id="logout">Logout</button>
     </footer>
 
     <!-- MODAl -->

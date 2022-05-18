@@ -1,11 +1,13 @@
-import { app } from './main.js';
-import { hideHTMLElement } from './helpers.js';
-import UsersList from './UsersList.js';
+import { app } from '../main.js';
+import UsersList from '../services/UsersList.js';
+import { hideHTMLElement, showHTMLElement } from '../utils/helpers.js';
+
+
 
 class Form {
     constructor(formID) {
         this.formElement = document.getElementById(formID);
-        this.email =  this.getEmail;
+        this.email = this.getEmail;
         this.password = this.getPassword;
     }
     addListenerForButtonActions(buttonId, func) {
@@ -14,16 +16,19 @@ class Form {
             .addEventListener('click', (e) => func(e));
     }
 
-    getEmail(){
+    getEmail() {
         return this.formElement.querySelectorAll('input[type=email]')[0].value;
     }
 
-    getPassword(){
-        return this.formElement.querySelectorAll('input[type=password]')[0].value;
+    getPassword() {
+        return this.formElement.querySelectorAll('input[type=password]')[0]
+            .value;
     }
 
     isUserExist() {
-        const usersData = app.usersDataLayer.getAll(app.usersDataLayer.tableName);
+        const usersData = app.usersDataLayer.getAll(
+            app.usersDataLayer.tableName
+        );
         return Object.keys(usersData).includes(this.getEmail());
     }
 
@@ -39,12 +44,13 @@ class Form {
     }
 
     checkValidInput(input) {
-        if(input.type === 'email') {
+        if (input.type === 'email') {
             const lettersPattern = /^[a-z0-9./-/_%+@]+$/;
             if (input.value.match(lettersPattern)) {
                 this.checkValidInputEmail(input);
             } else {
-                input.nextElementSibling.innerText = 'only latin letters allowed';
+                input.nextElementSibling.innerText =
+                    'only latin letters allowed';
                 input.nextElementSibling.classList.add('error-message');
             }
         }
@@ -56,7 +62,7 @@ class Form {
             input.nextElementSibling.innerText = '';
         } else {
             input.nextElementSibling.innerText = 'invalid email';
-            input.nextElementSibling.classList.add('error-message')
+            input.nextElementSibling.classList.add('error-message');
         }
     }
 
@@ -71,7 +77,11 @@ class Form {
     }
 
     performActionsOnLogin() {
-        app.dataLayer.add(this.getEmail(), 'token')
+        app.dataLayer.add(this.getEmail(), 'token');
+        hideHTMLElement('loginButton');
+        hideHTMLElement('registerButton');
+        showHTMLElement('logout');
+        window.location.hash = "#/";
         app.listOfUsers = new UsersList();
         app.listOfUsers.showListOfUsers();
     }
