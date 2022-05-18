@@ -13,6 +13,7 @@ body {
     top: 3px;
     right: 50px;
     width: 30vw;
+    display: flex;
 }
 
 nav {

@@ -1,13 +1,12 @@
 import Form from './Form.js';
-import { app } from './main.js';
+import { app } from '../main.js';
 import {
     signUpButtonId,
     signUpSuccessfullyMessage,
     signUpInvalidDataMessage,
     signUpHaveAccountMessage,
-} from './constants.js';
+} from '../utils/constants.js';
 
-import UsersList from './UsersList.js';
 
 export default class SignUp extends Form {
     constructor(formID) {
