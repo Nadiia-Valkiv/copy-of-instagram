@@ -7,6 +7,7 @@ import Router from './router/Router.js';
 import UsersList from './services/UsersList.js';
 import { hideHTMLElement, showHTMLElement
 } from './utils/helpers.js'
+import AuthService from './services/AuthService.js';
 
 export default class App {
     constructor() {
@@ -35,6 +36,7 @@ export default class App {
     }
 
     onLoad() {
+        // const auth = new AuthService().registerUser();
         window.addEventListener('load', () => {
             if (this.checkIsTokenValid()) {
                 hideHTMLElement('loginButton');

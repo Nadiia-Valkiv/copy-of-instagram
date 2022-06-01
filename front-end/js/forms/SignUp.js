@@ -6,7 +6,8 @@ import {
     signUpInvalidDataMessage,
     signUpHaveAccountMessage,
 } from '../utils/constants.js';
-
+import AuthService from '../services/AuthService.js';
+import User from '../models/User.js';
 
 export default class SignUp extends Form {
     constructor(formID) {
@@ -30,10 +31,15 @@ export default class SignUp extends Form {
                 console.log(signUpHaveAccountMessage);
             } else {
                 if (this.isAllDataValid()) {
+                    // used LocalStorage
                     app.usersDataLayer.add(
                         this.createNewUser(),
                         app.usersDataLayer.tableName
                     );
+
+
+                    // used DB
+                    const auth = new AuthService().registerUser(this.createNewUser());
                     console.log(signUpSuccessfullyMessage);
                     app.modal.closeModal('registerForm');
                     this.performActionsOnLogin();
@@ -48,11 +54,7 @@ export default class SignUp extends Form {
 
     createNewUser() {
         if (this.isAllDataValid) {
-            return {
-                [this.getEmail()]: {
-                    password: this.getPassword(),
-                },
-            };
+            return new User(this.getEmail(),this.getPassword())
         } else {
             console.log('Can not create new user. Provided data is invalid');
         }
