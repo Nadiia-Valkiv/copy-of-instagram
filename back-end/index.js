@@ -1,69 +1,27 @@
-import express from 'express';
-import multer from 'multer';
-import path from 'path';
+const express = require('express');
+const mongoose = require('mongoose');
+const authRouter = require('./authRouter.js');
+const cors = require('cors');
 
-const port = 3000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.use(cors())
 
-const storage = multer.diskStorage({
-    destination: './public/uploads/',
-    filename: function (req, file, cb) {
-        cb(
-            null,
-            `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-        );
-    },
-});
+app.use(express.json());
+app.use('/auth', authRouter);
 
-const upload = multer({
-    storage: storage,
-    fileFilter: function (req, file, cb) {
-        checkFileType(file, cb);
-    },
-}).single('myImage');
 
-function checkFileType(file, cb) {
-    const fileTypes = /jpeg|jpg|png|gif/;
-    const extname = fileTypes.test(
-        path.extname(file.originalname).toLowerCase()
-    );
 
-    const mimetype = fileTypes.test(file.mimetype);
-
-    if(extname && mimetype) {
-        return cb(null, true)
-    } else {
-        return cb('Error: Image only!')
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb://localhost:27017/mydb')
+        app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+    } catch (error) {
+        console.log(error);
     }
-}
+};
 
-app.set('view engine', 'ejs');
+start();
 
-app.use(express.static('./public'));
-
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-app.post('/upload', (req, res) => {
-    upload(req, res, (err) => {
-        if (err) {
-            res.render('index', {
-                msg: err
-            })
-        } else {
-            if(req.file === undefined) {
-                res.render('index', {
-                msg: 'Error: No file Selected!'
-            })
-            } else {
-                res.render('index', {
-                msg: 'File Uploaded!', 
-                file: `uploads/${req.file.filename}`
-            })
-            }
-        }
-    });
-});
 

@@ -21,7 +21,7 @@ class Login extends Form {
     userLogin(e) {
         e.preventDefault();
         if (this.isFormDataValid()) {
-            if (this.isUserExist()) {
+            if (this.isUserExist(this.getEmail())) {
                 this.checkUsersPassword();
                 app.modal.closeModal('loginForm');
                 this.performActionsOnLogin();
@@ -44,7 +44,7 @@ class Login extends Form {
 
     checkUsersPassword() {
         if (this.isUserExist()) {
-            if (this.checkIsPasswordCorrect()) {
+            if (true) {
                 this.passwordIsMatch = true;
                 app.usersDataLayer.add(
                     this.getUpdatedLoggedUser(true),

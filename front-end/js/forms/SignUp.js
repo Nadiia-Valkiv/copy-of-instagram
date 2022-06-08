@@ -6,7 +6,6 @@ import {
     signUpInvalidDataMessage,
     signUpHaveAccountMessage,
 } from '../utils/constants.js';
-import AuthService from '../services/AuthService.js';
 import User from '../models/User.js';
 
 export default class SignUp extends Form {
@@ -19,34 +18,24 @@ export default class SignUp extends Form {
         );
     }
 
-    getConfirmPassword() {
-        return this.formElement.querySelectorAll('input[type=password]')[1]
-            .value;
-    }
-
     saveRegistrationData(event) {
         event.preventDefault();
         if (this.isFormDataValid()) {
-            if (this.isUserExist(app.usersDataLayer)) {
-                console.log(signUpHaveAccountMessage);
-            } else {
-                if (this.isAllDataValid()) {
-                    // used LocalStorage
-                    app.usersDataLayer.add(
-                        this.createNewUser(),
-                        app.usersDataLayer.tableName
-                    );
-
-
-                    // used DB
-                    const auth = new AuthService().registerUser(this.createNewUser());
-                    console.log(signUpSuccessfullyMessage);
-                    app.modal.closeModal('registerForm');
-                    this.performActionsOnLogin();
-                } else {
-                    console.log(signUpInvalidDataMessage);
-                }
-            }
+            this.isUserExist(this.getEmail())
+                .then((user) => console.log(user))
+                .catch(console.log('rehjbhjrehjberhj'))
+            // if (this.isUserExist(this.getEmail())) {
+            //     console.log(signUpHaveAccountMessage);
+            // } else {
+            //     if (this.isAllDataValid()) {
+            //         app.usersDataLayer.add(this.createNewUser());
+            //         console.log(signUpSuccessfullyMessage);
+            //         app.modal.closeModal('registerForm');
+            //         this.performActionsOnLogin();
+            //     } else {
+            //         console.log(signUpInvalidDataMessage);
+            //     }
+            // }
         } else {
             console.log('invalid data');
         }
@@ -54,10 +43,21 @@ export default class SignUp extends Form {
 
     createNewUser() {
         if (this.isAllDataValid) {
-            return new User(this.getEmail(),this.getPassword())
+            return new User(this.getEmail(), this.getPassword());
         } else {
             console.log('Can not create new user. Provided data is invalid');
         }
+    }
+
+    isAllDataValid() {
+        console.log(`email :${this.validationEmail()}`);
+        console.log(`password :${this.validationPassword()}`);
+        console.log(`confirm password:${this.validationConfirmPassword()}`);
+        // todo: add or for this if statements
+        if (this.validationEmail() !== true) return false;
+        if (this.validationPassword() !== true) return false;
+        if (this.validationConfirmPassword() !== true) return false;
+        return true;
     }
 
     validationEmail() {
@@ -91,14 +91,8 @@ export default class SignUp extends Form {
         return errorMessage;
     }
 
-    isAllDataValid() {
-        console.log(`email :${this.validationEmail()}`);
-        console.log(`password :${this.validationPassword()}`);
-        console.log(`confirm password:${this.validationConfirmPassword()}`);
-        // todo: add or for this if statements
-        if (this.validationEmail() !== true) return false;
-        if (this.validationPassword() !== true) return false;
-        if (this.validationConfirmPassword() !== true) return false;
-        return true;
+    getConfirmPassword() {
+        return this.formElement.querySelectorAll('input[type=password]')[1]
+            .value;
     }
 }

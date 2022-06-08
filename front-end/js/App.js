@@ -5,8 +5,7 @@ import SignUp from './forms/SignUp.js';
 import Modal from './utils/Modal.js';
 import Router from './router/Router.js';
 import UsersList from './services/UsersList.js';
-import { hideHTMLElement, showHTMLElement
-} from './utils/helpers.js'
+import { hideHTMLElement, showHTMLElement } from './utils/helpers.js';
 import AuthService from './services/AuthService.js';
 
 export default class App {
@@ -36,16 +35,16 @@ export default class App {
     }
 
     onLoad() {
-        // const auth = new AuthService().registerUser();
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => {
+            this.usersDb = await this.usersDataLayer.getAll();
+            console.log(this.usersDb);
             if (this.checkIsTokenValid()) {
                 hideHTMLElement('loginButton');
                 hideHTMLElement('registerButton');
                 showHTMLElement('logout');
                 this.listOfUsers = new UsersList();
                 this.listOfUsers.showListOfUsers();
-            } 
-            else {
+            } else {
                 showHTMLElement('loginButton');
                 showHTMLElement('registerButton');
             }

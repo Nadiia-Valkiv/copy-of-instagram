@@ -1,17 +1,27 @@
 import { tableName } from '../utils/constants.js';
+import AuthService from './AuthService.js';
 import DataLayer from './DataLayer.js';
 
 export default class UsersDataLayer extends DataLayer {
     constructor() {
         super();
         this.tableName = tableName;
+        this.authService = new AuthService();
     }
 
-    add(userData, tableName) {
-        const result = { ...this.getAll(tableName), ...userData };
-        return localStorage.setItem(tableName, JSON.stringify(result));
+    add(user) {
+        console.log(this.authService.addUser(user));
     }
-    get(key) {
-        return super.get(key, this.tableName);
+
+    get(username) {
+        return this.authService.getUser(username);
     }
+
+    getAll() {
+        return this.authService.getAllUsers();
+    }
+
+    update(user) {}
+
+    delete(username) {}
 }

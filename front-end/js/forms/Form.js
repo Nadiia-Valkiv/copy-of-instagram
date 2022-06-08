@@ -2,14 +2,13 @@ import { app } from '../main.js';
 import UsersList from '../services/UsersList.js';
 import { hideHTMLElement, showHTMLElement } from '../utils/helpers.js';
 
-
-
 class Form {
     constructor(formID) {
         this.formElement = document.getElementById(formID);
         this.email = this.getEmail;
         this.password = this.getPassword;
     }
+    
     addListenerForButtonActions(buttonId, func) {
         document
             .getElementById(buttonId)
@@ -25,21 +24,24 @@ class Form {
             .value;
     }
 
-    isUserExist() {
-        const usersData = app.usersDataLayer.getAll(
-            app.usersDataLayer.tableName
-        );
-        return Object.keys(usersData).includes(this.getEmail());
-    }
+    async isUserExist(username) {
+        // const printUser = async () => {
+        //     console.log('in isUserExist');
+        //     const user = await app.usersDataLayer.get(username);
+        //     console.log('user', user);
+        //     return user.id ? true : false;
+        // };
 
-    isEmptyInputData(inputValue) {
-        return inputValue.length === 0;
+        // return printUser();
+
+        const user = await app.usersDataLayer.get(username);
+        console.log(user);
+        return user;
     }
 
     isFormDataValid() {
         let inputs = this.formElement.querySelectorAll('input');
         inputs.forEach((element) => this.checkValidInput(element));
-
         return this.formElement.checkValidity();
     }
 
@@ -77,13 +79,17 @@ class Form {
     }
 
     performActionsOnLogin() {
-        app.dataLayer.add(this.getEmail(), 'token');
+        // here was a token
         hideHTMLElement('loginButton');
         hideHTMLElement('registerButton');
         showHTMLElement('logout');
-        window.location.hash = "#/";
+        window.location.hash = '#/';
         app.listOfUsers = new UsersList();
         app.listOfUsers.showListOfUsers();
+    }
+
+    isEmptyInputData(inputValue) {
+        return inputValue.length === 0;
     }
 }
 

@@ -1,6 +1,7 @@
 class DataLayer {
-    add(userData, tableName) {
-        return localStorage.setItem(tableName, JSON.stringify(userData));
+    add(user) {
+        
+        // return localStorage.setItem(tableName, JSON.stringify(userData));
     }
 
     get(key, tableName) {
