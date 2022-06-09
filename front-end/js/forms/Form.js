@@ -25,18 +25,7 @@ class Form {
     }
 
     async isUserExist(username) {
-        // const printUser = async () => {
-        //     console.log('in isUserExist');
-        //     const user = await app.usersDataLayer.get(username);
-        //     console.log('user', user);
-        //     return user.id ? true : false;
-        // };
-
-        // return printUser();
-
-        const user = await app.usersDataLayer.get(username);
-        console.log(user);
-        return user;
+        return app.usersDataLayer.get(username);
     }
 
     isFormDataValid() {
@@ -66,16 +55,6 @@ class Form {
             input.nextElementSibling.innerText = 'invalid email';
             input.nextElementSibling.classList.add('error-message');
         }
-    }
-
-    addListenerForFormCross(elementId, idElementToStyled) {
-        document
-            .getElementById(elementId)
-            .addEventListener(
-                'click',
-                () => hideHTMLElement(idElementToStyled),
-                false
-            );
     }
 
     performActionsOnLogin() {

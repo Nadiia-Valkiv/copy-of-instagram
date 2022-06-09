@@ -32,7 +32,7 @@ export default class EditForm {
         formJSON.hobby = data.getAll('hobby');
         let oldUserData = app.usersDataLayer.get(this.userToEdit, 'Users');
         let allUserData = { ...oldUserData, ...formJSON };
-        this.editUserData = app.usersDataLayer.getAll('Users');
+        this.editUserData = app.usersDataLayer.getAllForToken('Users');
         this.editUserData[this.userToEdit] = allUserData;
         app.usersDataLayer.updateAfterRemove(this.editUserData, 'Users');
         app.modal.closeModal();

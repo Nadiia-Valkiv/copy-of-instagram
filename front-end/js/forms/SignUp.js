@@ -21,21 +21,20 @@ export default class SignUp extends Form {
     saveRegistrationData(event) {
         event.preventDefault();
         if (this.isFormDataValid()) {
-            this.isUserExist(this.getEmail())
-                .then((user) => console.log(user))
-                .catch(console.log('rehjbhjrehjberhj'))
-            // if (this.isUserExist(this.getEmail())) {
-            //     console.log(signUpHaveAccountMessage);
-            // } else {
-            //     if (this.isAllDataValid()) {
-            //         app.usersDataLayer.add(this.createNewUser());
-            //         console.log(signUpSuccessfullyMessage);
-            //         app.modal.closeModal('registerForm');
-            //         this.performActionsOnLogin();
-            //     } else {
-            //         console.log(signUpInvalidDataMessage);
-            //     }
-            // }
+            this.isUserExist(this.getEmail()).then((data) => {
+                if (data.isUserNotExistMessage) {
+                    if (this.isAllDataValid()) {
+                        app.usersDataLayer.add(this.createNewUser());
+                        console.log(signUpSuccessfullyMessage);
+                        app.modal.closeModal('registerForm');
+                        this.performActionsOnLogin();
+                    } else {
+                        console.log(signUpInvalidDataMessage);
+                    }
+                } else {
+                    console.log(signUpHaveAccountMessage);
+                }
+            });
         } else {
             console.log('invalid data');
         }
@@ -56,8 +55,7 @@ export default class SignUp extends Form {
         // todo: add or for this if statements
         if (this.validationEmail() !== true) return false;
         if (this.validationPassword() !== true) return false;
-        if (this.validationConfirmPassword() !== true) return false;
-        return true;
+        return this.validationConfirmPassword() === true;
     }
 
     validationEmail() {

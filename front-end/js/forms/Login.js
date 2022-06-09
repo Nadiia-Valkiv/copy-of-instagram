@@ -10,66 +10,35 @@ import {
 class Login extends Form {
     constructor(formID) {
         super(formID);
-        this.passwordIsMatch = undefined;
         this.addListenerForButtonActions(
             loginButtonId,
             this.userLogin.bind(this)
         );
-        this.userPassword = null;
     }
 
     userLogin(e) {
         e.preventDefault();
         if (this.isFormDataValid()) {
-            if (this.isUserExist(this.getEmail())) {
-                this.checkUsersPassword();
-                app.modal.closeModal('loginForm');
-                this.performActionsOnLogin();
-            } else {
-                console.log(loginPleaseRegisterMessage);
-            }
+            this.isUserExist(this.getEmail()).then((data) => {
+                if (data.isUserNotExistMessage) {
+                    console.log(loginPleaseRegisterMessage);
+                } else {
+                    if (this.checkIsPasswordCorrect(data.password)) {
+                        console.log(loginSuccessfullyMessage);
+                        app.modal.closeModal('loginForm');
+                        this.performActionsOnLogin();
+                    } else {
+                        console.log(loginPasswordIncorrectMessage);
+                    }
+                }
+            });
         } else {
-            console.log('invalid data');
+            console.log('invalid data in form');
         }
     }
 
-    getUserPassword() {
-        let result = undefined;
-        const userInDB = app.usersDataLayer.get(this.getEmail());
-        if (userInDB !== undefined) {
-            result = userInDB.password;
-        }
-        return result;
-    }
-
-    checkUsersPassword() {
-        if (this.isUserExist()) {
-            if (true) {
-                this.passwordIsMatch = true;
-                app.usersDataLayer.add(
-                    this.getUpdatedLoggedUser(true),
-                    app.usersDataLayer.tableName
-                );
-                console.log(loginSuccessfullyMessage);
-            } else {
-                this.passwordIsMatch = false;
-                console.log(loginPasswordIncorrectMessage);
-            }
-            return this.passwordIsMatch;
-        }
-    }
-
-    checkIsPasswordCorrect() {
-        this.userPassword = this.getUserPassword();
-        return this.userPassword === this.getPassword();
-    }
-
-    getUpdatedLoggedUser() {
-        return {
-            [this.getEmail()]: {
-                password: this.getPassword(),
-            },
-        };
+    checkIsPasswordCorrect(userPasswordInDB) {
+        return userPasswordInDB === this.getPassword();
     }
 }
 

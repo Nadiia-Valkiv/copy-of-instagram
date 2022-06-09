@@ -1,27 +1,47 @@
-import { tableName } from '../utils/constants.js';
-import AuthService from './AuthService.js';
-import DataLayer from './DataLayer.js';
-
-export default class UsersDataLayer extends DataLayer {
-    constructor() {
-        super();
-        this.tableName = tableName;
-        this.authService = new AuthService();
+export default class UsersDataLayer {
+    async add(user) {
+        const result = await fetch('http://localhost:5000/auth/registration', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user),
+        });
+        return result.json();
     }
 
-    add(user) {
-        console.log(this.authService.addUser(user));
+    async get(username) {
+        const resp = await fetch('http://localhost:5000/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: username,
+            }),
+        });
+        return resp.json();
     }
 
-    get(username) {
-        return this.authService.getUser(username);
+    async getAll() {
+        const resp = await fetch('http://localhost:5000/auth/users', {
+            method: 'GET',
+        });
+        return resp.json();
     }
 
-    getAll() {
-        return this.authService.getAllUsers();
+    async delete(username) {
+        const resp = await fetch('http://localhost:5000/auth/delete', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: username,
+            }),
+        });
+        return resp.json();
     }
 
-    update(user) {}
+    update(user) {
+        
+    }
 
-    delete(username) {}
+    getAllForToken(tableName) {
+        return JSON.parse(localStorage.getItem(tableName)) || {};
+    }
 }
