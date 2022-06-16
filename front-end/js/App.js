@@ -35,21 +35,26 @@ export default class App {
         window.addEventListener('load', async () => {
             if (this.checkIsTokenExist()) {
                 this.listOfUsers = new UsersList();
-                if (!this.listOfUsers.showListOfUsers()) {
-                    showHTMLElement('loginButton');
-                showHTMLElement('registerButton');
-                    console.log('Token is invalid');
-                } else {
-                      hideHTMLElement('loginButton');
-                hideHTMLElement('registerButton');
-                showHTMLElement('logout');
-                    console.log('test2');
-                }
-
-                
+                this.listOfUsers
+                    .showListOfUsers()
+                    .then(() => {
+                        hideHTMLElement('loginButton');
+                        hideHTMLElement('registerButton');
+                        showHTMLElement('logout');
+                    })
+                    .catch(() => {
+                        showHTMLElement('loginButton');
+                        showHTMLElement('registerButton');
+                        document.getElementsByClassName(
+                            'list-of-users'
+                        )[0].style.display = 'none';
+                    });
             } else {
                 showHTMLElement('loginButton');
                 showHTMLElement('registerButton');
+                document.getElementsByClassName(
+                    'list-of-users'
+                )[0].style.display = 'none';
             }
         });
     }
