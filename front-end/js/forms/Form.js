@@ -2,14 +2,13 @@ import { app } from '../main.js';
 import UsersList from '../services/UsersList.js';
 import { hideHTMLElement, showHTMLElement } from '../utils/helpers.js';
 
-
-
 class Form {
     constructor(formID) {
         this.formElement = document.getElementById(formID);
         this.email = this.getEmail;
         this.password = this.getPassword;
     }
+    
     addListenerForButtonActions(buttonId, func) {
         document
             .getElementById(buttonId)
@@ -25,21 +24,13 @@ class Form {
             .value;
     }
 
-    isUserExist() {
-        const usersData = app.usersDataLayer.getAll(
-            app.usersDataLayer.tableName
-        );
-        return Object.keys(usersData).includes(this.getEmail());
-    }
-
-    isEmptyInputData(inputValue) {
-        return inputValue.length === 0;
+    async isUserExist(username) {
+        return app.usersDataLayer.get(username);
     }
 
     isFormDataValid() {
         let inputs = this.formElement.querySelectorAll('input');
         inputs.forEach((element) => this.checkValidInput(element));
-
         return this.formElement.checkValidity();
     }
 
@@ -66,24 +57,18 @@ class Form {
         }
     }
 
-    addListenerForFormCross(elementId, idElementToStyled) {
-        document
-            .getElementById(elementId)
-            .addEventListener(
-                'click',
-                () => hideHTMLElement(idElementToStyled),
-                false
-            );
-    }
-
-    performActionsOnLogin() {
-        app.dataLayer.add(this.getEmail(), 'token');
+    performActionsOnLogin(token) {
+        localStorage.setItem('jwt', token);
         hideHTMLElement('loginButton');
         hideHTMLElement('registerButton');
         showHTMLElement('logout');
-        window.location.hash = "#/";
+        window.location.hash = '#/';
         app.listOfUsers = new UsersList();
         app.listOfUsers.showListOfUsers();
+    }
+
+    isEmptyInputData(inputValue) {
+        return inputValue.length === 0;
     }
 }
 

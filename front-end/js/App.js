@@ -1,17 +1,14 @@
 import UsersDataLayer from './services/UsersDataLayer.js';
-import DataLayer from './services/DataLayer.js';
 import Login from './forms/Login.js';
 import SignUp from './forms/SignUp.js';
 import Modal from './utils/Modal.js';
 import Router from './router/Router.js';
 import UsersList from './services/UsersList.js';
-import { hideHTMLElement, showHTMLElement
-} from './utils/helpers.js'
+import { hideHTMLElement, showHTMLElement } from './utils/helpers.js';
 
 export default class App {
     constructor() {
         this.router = new Router();
-        this.dataLayer = new DataLayer();
         this.usersDataLayer = new UsersDataLayer();
         this.loginForm = new Login('loginForm');
         this.signUpForm = new SignUp('registerForm');
@@ -35,30 +32,35 @@ export default class App {
     }
 
     onLoad() {
-        window.addEventListener('load', () => {
-            if (this.checkIsTokenValid()) {
-                hideHTMLElement('loginButton');
+        window.addEventListener('load', async () => {
+            if (this.checkIsTokenExist()) {
+                this.listOfUsers = new UsersList();
+                if (!this.listOfUsers.showListOfUsers()) {
+                    showHTMLElement('loginButton');
+                showHTMLElement('registerButton');
+                    console.log('Token is invalid');
+                } else {
+                      hideHTMLElement('loginButton');
                 hideHTMLElement('registerButton');
                 showHTMLElement('logout');
-                this.listOfUsers = new UsersList();
-                this.listOfUsers.showListOfUsers();
-            } 
-            else {
+                    console.log('test2');
+                }
+
+                
+            } else {
                 showHTMLElement('loginButton');
                 showHTMLElement('registerButton');
             }
         });
     }
 
-    checkIsTokenValid() {
-        const loggedInUser = this.dataLayer.getAll('token');
-        const registeredUser = Object.keys(this.dataLayer.getAll('Users'));
-        return registeredUser.includes(loggedInUser);
+    checkIsTokenExist() {
+        return localStorage.getItem('jwt');
     }
 
     addLogOutListener() {
         document.getElementById('logout').addEventListener('click', () => {
-            localStorage.removeItem('token');
+            localStorage.removeItem('jwt');
             location.reload();
         });
     }

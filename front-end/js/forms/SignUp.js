@@ -6,7 +6,8 @@ import {
     signUpInvalidDataMessage,
     signUpHaveAccountMessage,
 } from '../utils/constants.js';
-
+import AuthLayer from '../services/AuthLayer.js';
+import User from '../models/User.js';
 
 export default class SignUp extends Form {
     constructor(formID) {
@@ -18,29 +19,26 @@ export default class SignUp extends Form {
         );
     }
 
-    getConfirmPassword() {
-        return this.formElement.querySelectorAll('input[type=password]')[1]
-            .value;
-    }
-
     saveRegistrationData(event) {
         event.preventDefault();
         if (this.isFormDataValid()) {
-            if (this.isUserExist(app.usersDataLayer)) {
-                console.log(signUpHaveAccountMessage);
-            } else {
-                if (this.isAllDataValid()) {
-                    app.usersDataLayer.add(
-                        this.createNewUser(),
-                        app.usersDataLayer.tableName
-                    );
-                    console.log(signUpSuccessfullyMessage);
-                    app.modal.closeModal('registerForm');
-                    this.performActionsOnLogin();
+            this.isUserExist(this.getEmail()).then((data) => {
+                if (data.isUserNotExistMessage) {
+                    if (this.isAllDataValid()) {
+                        app.usersDataLayer
+                            .add(this.createNewUser())
+                            .then((resp) => {
+                                this.performActionsOnLogin(resp.jwt.token);
+                            });
+                        console.log(signUpSuccessfullyMessage);
+                        app.modal.closeModal('registerForm');
+                    } else {
+                        console.log(signUpInvalidDataMessage);
+                    }
                 } else {
-                    console.log(signUpInvalidDataMessage);
+                    console.log(signUpHaveAccountMessage);
                 }
-            }
+            });
         } else {
             console.log('invalid data');
         }
@@ -48,14 +46,20 @@ export default class SignUp extends Form {
 
     createNewUser() {
         if (this.isAllDataValid) {
-            return {
-                [this.getEmail()]: {
-                    password: this.getPassword(),
-                },
-            };
+            return new User(this.getEmail(), this.getPassword());
         } else {
             console.log('Can not create new user. Provided data is invalid');
         }
+    }
+
+    isAllDataValid() {
+        console.log(`email :${this.validationEmail()}`);
+        console.log(`password :${this.validationPassword()}`);
+        console.log(`confirm password:${this.validationConfirmPassword()}`);
+        // todo: add or for this if statements
+        if (this.validationEmail() !== true) return false;
+        if (this.validationPassword() !== true) return false;
+        return this.validationConfirmPassword() === true;
     }
 
     validationEmail() {
@@ -89,14 +93,8 @@ export default class SignUp extends Form {
         return errorMessage;
     }
 
-    isAllDataValid() {
-        console.log(`email :${this.validationEmail()}`);
-        console.log(`password :${this.validationPassword()}`);
-        console.log(`confirm password:${this.validationConfirmPassword()}`);
-        // todo: add or for this if statements
-        if (this.validationEmail() !== true) return false;
-        if (this.validationPassword() !== true) return false;
-        if (this.validationConfirmPassword() !== true) return false;
-        return true;
+    getConfirmPassword() {
+        return this.formElement.querySelectorAll('input[type=password]')[1]
+            .value;
     }
 }

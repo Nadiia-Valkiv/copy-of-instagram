@@ -6,7 +6,6 @@ export default class UsersList {
     constructor() {
         clearList('list-wrapper');
         this.list = document.getElementsByClassName('list-wrapper')[0];
-        this.allUsers = app.usersDataLayer.getAll('Users');
         this.userToRemove = '';
         this.userToRemoveId = '';
         this.form = null;
@@ -46,25 +45,36 @@ export default class UsersList {
     }
 
     createListOfUsers() {
-        const allUsersKeys = Object.keys(this.allUsers);
-        allUsersKeys.forEach((el, index) => {
-            this.createListItem(el, el);
-            document
-                .getElementById(`delete-${allUsersKeys[index]}`)
-                .addEventListener('click', (e) => this.showDeleteDialog(e));
+        app.usersDataLayer.getAll().then((users) => {
+            users
+                .map((user) => user.username)
+                .forEach((el) => {
+                    this.createListItem(el, el);
+                    document
+                        .getElementById(`delete-${el}`)
+                        .addEventListener('click', (e) =>
+                            this.showDeleteDialog(e)
+                        );
 
-            document
-                .getElementById(`edit-${allUsersKeys[index]}`)
-                .addEventListener('click', () => { app.editForm = new EditForm(allUsersKeys[index]);
-                app.editForm.showEditForm('editForm');
+                    document
+                        .getElementById(`edit-${el}`)
+                        .addEventListener('click', () => {
+                            app.editForm = new EditForm(el);
+                            app.editForm.showEditForm('editForm');
+                        });
                 });
+        }).catch((err) => {
+            return false;
         });
     }
 
     showListOfUsers() {
         document.getElementsByClassName('list-of-users')[0].style.display =
             'block';
-        this.createListOfUsers();
+        if(!this.createListOfUsers())  {
+            return false
+        }  
+        
     }
 
     showDeleteDialog(e) {
@@ -80,14 +90,11 @@ export default class UsersList {
     }
 
     deleteUserFromStorage() {
-        delete this.allUsers[this.userToRemove];
-        app.usersDataLayer.updateAfterRemove(
-            this.allUsers,
-            app.usersDataLayer.tableName
-        );
-        clearList('list-wrapper');
-        this.createListOfUsers();
-        app.modal.closeModal();
+        app.usersDataLayer.delete(this.userToRemove).then(() => {
+            clearList('list-wrapper');
+            this.createListOfUsers();
+            app.modal.closeModal();
+        });
     }
 
     cancelDeleteUser() {
