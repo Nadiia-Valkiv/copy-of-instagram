@@ -2,10 +2,8 @@ const User = require('./models/User.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-const { nextTick } = require('process');
 
 const RSA256_PRIVATE_KEY = fs.readFileSync('rs256/jwtRS256.key');
-const jwtKeyWord = 'esperanza';
 const jwtExpiryTime = '1y';
 const saltForPassword = 10;
 
@@ -63,18 +61,15 @@ class AuthController {
                             expiresIn: jwtExpiryTime,
                         }
                     );
-                    console.log('token: ' + jwt);
                     return res.status(200).json({
                         username: username,
                         msg: true,
                         jwt: { token: jwtToken, expiresIn: jwtExpiryTime },
                     });
                 } else {
-                    console.log(false);
                     return res.status(401).json({ msg: false });
                 }
             });
-            // console.log(userInDB.password === encryptedPassword)
         } catch (e) {
             console.log(e);
         }
@@ -99,10 +94,9 @@ class AuthController {
     async getUsers(req, res) {
         try {
             const bearerHeader = req.headers['authorization'];
-            console.log('bear2', bearerHeader)
             if (typeof bearerHeader !== 'undefined') {
                 const bearerToken = bearerHeader.split(' ')[1];
-                jwt.verify(bearerToken, RSA256_PRIVATE_KEY, async (err, data) => {
+                jwt.verify(bearerToken, RSA256_PRIVATE_KEY, async (err) => {
                     if (err) {
                         return res.status(403).json({message: 'Token not valid'});
                     } else {
