@@ -1,4 +1,5 @@
 /back-end/node_modules
+/back-end/rs256
 /front-end/node_modules
 *.jpg
 .gitignore

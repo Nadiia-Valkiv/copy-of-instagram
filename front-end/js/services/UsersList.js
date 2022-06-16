@@ -45,36 +45,36 @@ export default class UsersList {
     }
 
     createListOfUsers() {
-        app.usersDataLayer.getAll().then((users) => {
-            users
-                .map((user) => user.username)
-                .forEach((el) => {
-                    this.createListItem(el, el);
-                    document
-                        .getElementById(`delete-${el}`)
-                        .addEventListener('click', (e) =>
-                            this.showDeleteDialog(e)
-                        );
+        return app.usersDataLayer
+            .getAll()
+            .then((users) => {
+                users
+                    .map((user) => user.username)
+                    .forEach((el) => {
+                        this.createListItem(el, el);
+                        document
+                            .getElementById(`delete-${el}`)
+                            .addEventListener('click', (e) =>
+                                this.showDeleteDialog(e)
+                            );
 
-                    document
-                        .getElementById(`edit-${el}`)
-                        .addEventListener('click', () => {
-                            app.editForm = new EditForm(el);
-                            app.editForm.showEditForm('editForm');
-                        });
-                });
-        }).catch((err) => {
-            return false;
-        });
+                        document
+                            .getElementById(`edit-${el}`)
+                            .addEventListener('click', () => {
+                                app.editForm = new EditForm(el);
+                                app.editForm.showEditForm('editForm');
+                            });
+                    });
+            })
+            .catch((err) => {
+                throw new Error(err);
+            });
     }
 
     showListOfUsers() {
         document.getElementsByClassName('list-of-users')[0].style.display =
             'block';
-        if(!this.createListOfUsers())  {
-            return false
-        }  
-        
+        return this.createListOfUsers();
     }
 
     showDeleteDialog(e) {
