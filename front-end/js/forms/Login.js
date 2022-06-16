@@ -6,6 +6,8 @@ import {
     loginSuccessfullyMessage,
     loginPasswordIncorrectMessage,
 } from '../utils/constants.js';
+import AuthLayer from '../services/AuthLayer.js';
+import User from '../models/User.js';
 
 class Login extends Form {
     constructor(formID) {
@@ -18,18 +20,23 @@ class Login extends Form {
 
     userLogin(e) {
         e.preventDefault();
+
         if (this.isFormDataValid()) {
             this.isUserExist(this.getEmail()).then((data) => {
                 if (data.isUserNotExistMessage) {
                     console.log(loginPleaseRegisterMessage);
                 } else {
-                    if (this.checkIsPasswordCorrect(data.password)) {
-                        console.log(loginSuccessfullyMessage);
-                        app.modal.closeModal('loginForm');
-                        this.performActionsOnLogin();
-                    } else {
-                        console.log(loginPasswordIncorrectMessage);
-                    }
+                    new AuthLayer().login(
+                        new User(this.getEmail(), this.getPassword())
+                    ).then((data) => {
+                        if (data.msg) {
+                            console.log(loginSuccessfullyMessage);
+                            app.modal.closeModal('loginForm');
+                            this.performActionsOnLogin(data.jwt.token);
+                        } else {
+                            console.log(loginPasswordIncorrectMessage);
+                        }
+                    });
                 }
             });
         } else {

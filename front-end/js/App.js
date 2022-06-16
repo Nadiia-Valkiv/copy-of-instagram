@@ -33,12 +33,20 @@ export default class App {
 
     onLoad() {
         window.addEventListener('load', async () => {
-            if (this.checkIsTokenValid()) {
-                hideHTMLElement('loginButton');
+            if (this.checkIsTokenExist()) {
+                this.listOfUsers = new UsersList();
+                if (!this.listOfUsers.showListOfUsers()) {
+                    showHTMLElement('loginButton');
+                showHTMLElement('registerButton');
+                    console.log('Token is invalid');
+                } else {
+                      hideHTMLElement('loginButton');
                 hideHTMLElement('registerButton');
                 showHTMLElement('logout');
-                this.listOfUsers = new UsersList();
-                this.listOfUsers.showListOfUsers();
+                    console.log('test2');
+                }
+
+                
             } else {
                 showHTMLElement('loginButton');
                 showHTMLElement('registerButton');
@@ -46,15 +54,13 @@ export default class App {
         });
     }
 
-    checkIsTokenValid() {
-        const loggedInUser = this.usersDataLayer.getAllForToken('token');
-        const registeredUser = Object.keys(this.usersDataLayer.getAllForToken('Users'));
-        return registeredUser.includes(loggedInUser);
+    checkIsTokenExist() {
+        return localStorage.getItem('jwt');
     }
 
     addLogOutListener() {
         document.getElementById('logout').addEventListener('click', () => {
-            localStorage.removeItem('token');
+            localStorage.removeItem('jwt');
             location.reload();
         });
     }

@@ -57,8 +57,8 @@ class Form {
         }
     }
 
-    performActionsOnLogin() {
-        // here was a token
+    performActionsOnLogin(token) {
+        localStorage.setItem('jwt', token);
         hideHTMLElement('loginButton');
         hideHTMLElement('registerButton');
         showHTMLElement('logout');

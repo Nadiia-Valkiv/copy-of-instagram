@@ -6,6 +6,7 @@ import {
     signUpInvalidDataMessage,
     signUpHaveAccountMessage,
 } from '../utils/constants.js';
+import AuthLayer from '../services/AuthLayer.js';
 import User from '../models/User.js';
 
 export default class SignUp extends Form {
@@ -24,10 +25,13 @@ export default class SignUp extends Form {
             this.isUserExist(this.getEmail()).then((data) => {
                 if (data.isUserNotExistMessage) {
                     if (this.isAllDataValid()) {
-                        app.usersDataLayer.add(this.createNewUser());
+                        app.usersDataLayer
+                            .add(this.createNewUser())
+                            .then((resp) => {
+                                this.performActionsOnLogin(resp.jwt.token);
+                            });
                         console.log(signUpSuccessfullyMessage);
                         app.modal.closeModal('registerForm');
-                        this.performActionsOnLogin();
                     } else {
                         console.log(signUpInvalidDataMessage);
                     }

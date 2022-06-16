@@ -63,13 +63,18 @@ export default class UsersList {
                             app.editForm.showEditForm('editForm');
                         });
                 });
+        }).catch((err) => {
+            return false;
         });
     }
 
     showListOfUsers() {
         document.getElementsByClassName('list-of-users')[0].style.display =
             'block';
-        this.createListOfUsers();
+        if(!this.createListOfUsers())  {
+            return false
+        }  
+        
     }
 
     showDeleteDialog(e) {

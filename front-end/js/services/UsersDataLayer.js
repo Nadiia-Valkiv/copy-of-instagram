@@ -11,7 +11,9 @@ export default class UsersDataLayer {
     async get(username) {
         const resp = await fetch('http://localhost:5000/auth/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+             headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 username: username,
             }),
@@ -22,7 +24,14 @@ export default class UsersDataLayer {
     async getAll() {
         const resp = await fetch('http://localhost:5000/auth/users', {
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+            },
         });
+        if (resp.status != 200) {
+            throw Error('user not authenticated, invalid token');
+        }
         return resp.json();
     }
 
@@ -37,11 +46,5 @@ export default class UsersDataLayer {
         return resp.json();
     }
 
-    update(user) {
-        
-    }
-
-    getAllForToken(tableName) {
-        return JSON.parse(localStorage.getItem(tableName)) || {};
-    }
+    update(user) {}
 }
